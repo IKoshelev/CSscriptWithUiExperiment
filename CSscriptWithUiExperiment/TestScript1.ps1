@@ -1,0 +1,1 @@
+ ."..\packages\Microsoft.Net.Compilers.2.9.0\tools\csi.exe" "TestScript1.csx"
