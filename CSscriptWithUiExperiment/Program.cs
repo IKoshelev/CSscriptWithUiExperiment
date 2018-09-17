@@ -11,7 +11,7 @@ namespace CSscriptWithUiExperiment
     {
         static void Main(string[] args)
         {
-            //CompiledAppTest();
+            CompiledAppTest();
             Console.WriteLine("Project is just to manage NuGet packages. Run .ps1 (or .csx dirctly) files included for demo.");
         }
 
@@ -39,10 +39,16 @@ namespace CSscriptWithUiExperiment
         });
             top.Add(menu);
 
+            var a = new TextField(14, 2, 40, "");
+            a.Changed += (e,o) => {
+                var b = a.Text;
+                
+            };
+
             // Add some controls
             win.Add(
                     new Label(3, 2, "Login: "),
-                    new TextField(14, 2, 40, ""),
+                    a,
                     new Label(3, 4, "Password: "),
                     new TextField(14, 4, 40, "") { Secret = true },
                     new CheckBox(3, 6, "Remember me"),

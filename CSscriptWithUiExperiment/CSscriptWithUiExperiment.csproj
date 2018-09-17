@@ -63,6 +63,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="ScriptPlugin.csx" />
+    <None Include="MultiplyPlugin\Multiply.csx" />
+    <None Include="MultiplyPlugin\MultiplyUI.csx" />
+    <None Include="SumPlugin\SumUI.csx" />
+    <None Include="SumPlugin\Sum.csx" />
+    <None Include="TestScript1.bat" />
     <None Include="TestScript1.csx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
