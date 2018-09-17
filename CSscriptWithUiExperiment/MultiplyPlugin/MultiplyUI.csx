@@ -18,10 +18,6 @@ class MultiplyPlugin : ScriptPlugin
 
     private Func<int, int, int> Multiply { get; set; }
 
-    private Window view;
-
-    public override Window View => view;
-
     public override void Execute()
     {
         int a;
@@ -43,7 +39,7 @@ class MultiplyPlugin : ScriptPlugin
 
         OperandATextField.Text = (a * 2).ToString();
 
-        view.Add(new Label(3, 8, "Last result: " + c));
+        View.Add(new Label(3, 8, "Last result: " + c));
 
     }
 
@@ -51,14 +47,24 @@ class MultiplyPlugin : ScriptPlugin
     {
         Multiply = multiply;
         RunButton.Clicked = Execute;
-        view = new Window(this.Name);
+    }
 
-        view.Add(
-            new Label(3, 2, "A: "),
-            OperandATextField,
-            new Label(3, 4, "B: "),
-            OperandBTextField,
-            RunButton);
+    private bool isInit = false;
+    public override void OnActivate()
+    {
+        if (isInit == false)
+        {
+            isInit = true;
+
+            View.Add(
+               new Label(3, 2, "A: "),
+               OperandATextField,
+               new Label(3, 4, "B: "),
+               OperandBTextField,
+               RunButton);
+        }
+
+        View.SetFocus(OperandATextField);
     }
 }
 

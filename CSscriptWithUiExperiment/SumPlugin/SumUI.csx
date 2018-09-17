@@ -18,10 +18,6 @@ class SumPlugin: ScriptPlugin
 
     private Func<int, int, int> Sum { get; set; }
 
-    private Window view;
-
-    public override Window View => view;
-
     public override void Execute()
     {
         int a;
@@ -43,21 +39,31 @@ class SumPlugin: ScriptPlugin
 
         OperandATextField.Text = (a * 2).ToString();
 
-        view.Add(new Label(3, 8, "Last result: " + c));
+        View.Add(new Label(3, 8, "Last result: " + c));
     }
 
     public SumPlugin(Func<int, int, int> sum)
     {
         Sum = sum;
-        RunButton.Clicked = Execute;
-        view = new Window(this.Name);
+        RunButton.Clicked = Execute;     
+    }
 
-        view.Add(
-            new Label(3, 2, "A: "),
-            OperandATextField,
-            new Label(3, 4, "B: "),
-            OperandBTextField,
-            RunButton);
+    private bool isInit = false;
+    public override void OnActivate()
+    {
+        if (isInit == false)
+        {
+            isInit = true;
+
+            View.Add(
+               new Label(3, 2, "A: "),
+               OperandATextField,
+               new Label(3, 4, "B: "),
+               OperandBTextField,
+               RunButton);
+        }
+
+        View.SetFocus(OperandATextField);
     }
 }
 

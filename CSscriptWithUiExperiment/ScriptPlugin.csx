@@ -5,7 +5,14 @@ using System;
 abstract class ScriptPlugin
 {
     public abstract string Name { get; }
-    public abstract string Description { get; } 
-    public abstract Window View { get;  }
+    public abstract string Description { get; }
+    private Window view;
+    public Window View => view;
     public abstract void Execute();
+    public abstract void OnActivate();
+
+    protected ScriptPlugin()
+    {
+        view = new Window(Name);
+    }
 }
