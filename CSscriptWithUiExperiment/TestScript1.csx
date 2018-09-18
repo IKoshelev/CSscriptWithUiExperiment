@@ -6,23 +6,29 @@ using Terminal.Gui;
 Application.Init();
 var top = Application.Top;
 
+var win = new Window(new Rect(0, 1, top.Frame.Width, top.Frame.Height - 1), "MyApp");
+
+top.Add(win);
+
 Window pluginListWindow = new Window("Available plugins");
 pluginListWindow.Add(
     new Label(3, 2, "Choose plugin to load"),
     new Button(3, 4, sumPlugin.Name)
     {
         Clicked = () =>
-        {           
+        {
+            sumPlugin.OnBeforeActivate(new Rect(0, 0, win.Frame.Width - 2, win.Frame.Height - 2));
             setView(sumPlugin.View);
-            sumPlugin.OnActivate();
+            sumPlugin.OnAfterActivate();
         }
     },
     new Button(3, 6, multiplyPlugin.Name)
     {
         Clicked = () =>
-        {           
+        {
+            multiplyPlugin.OnBeforeActivate(new Rect(0, 0, win.Frame.Width - 2, win.Frame.Height - 2));
             setView(multiplyPlugin.View);
-            multiplyPlugin.OnActivate();
+            multiplyPlugin.OnAfterActivate();
         }
     }
 );
@@ -42,10 +48,6 @@ var menu = new MenuBar(new MenuBarItem[] {
 
 top.Add(menu);
 
-var win = new Window(new Rect(0, 1, top.Frame.Width, top.Frame.Height - 1), "MyApp");
-
-top.Add(win);
-
 void setView(Window view)
 {
     var subView = win.Subviews[0];
@@ -55,11 +57,8 @@ void setView(Window view)
     subView.RemoveAll();
 
     win.Add(view);
-
 }
 
-win.Add(sumPlugin.View);
-win.Add(multiplyPlugin.View);
 win.Add(pluginListWindow);
 pluginListWindow.FocusFirst();
 

@@ -6,13 +6,12 @@ abstract class ScriptPlugin
 {
     public abstract string Name { get; }
     public abstract string Description { get; }
-    private Window view;
+    protected Window view;
     public Window View => view;
     public abstract void Execute();
-    public abstract void OnActivate();
-
-    protected ScriptPlugin()
+    public virtual void OnBeforeActivate(Rect bounds)
     {
-        view = new Window(Name);
+        view = new Window(bounds, Name);
     }
+    public virtual void OnAfterActivate() { }
 }

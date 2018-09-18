@@ -48,22 +48,20 @@ class MultiplyPlugin : ScriptPlugin
         Multiply = multiply;
         RunButton.Clicked = Execute;
     }
-
-    private bool isInit = false;
-    public override void OnActivate()
+    public override void OnBeforeActivate(Rect rect)
     {
-        if (isInit == false)
-        {
-            isInit = true;
+        base.OnBeforeActivate(rect);
 
-            View.Add(
-               new Label(3, 2, "A: "),
-               OperandATextField,
-               new Label(3, 4, "B: "),
-               OperandBTextField,
-               RunButton);
-        }
+        View.Add(
+            new Label(3, 2, "A: "),
+            OperandATextField,
+            new Label(3, 4, "B: "),
+            OperandBTextField,
+            RunButton);
+    }
 
+    public override void OnAfterActivate()
+    {
         View.SetFocus(OperandATextField);
     }
 }
