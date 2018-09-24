@@ -7,8 +7,8 @@ using Terminal.Gui;
 
 var registeredPlugins = new (int position, ScriptPlugin plugin)[]
 {
-    (position: 1, plugin: sumPlugin ),
-    (position: 2, plugin: multiplyPlugin )
+    (position: 0, plugin: sumPlugin ),
+    (position: 1, plugin: multiplyPlugin )
 };
 
 Application.Init();
@@ -18,8 +18,7 @@ var win = new Window(new Rect(0, 1, top.Frame.Width, top.Frame.Height - 1), "MyA
 
 top.Add(win);
 
-Window pluginListWindow = new Window("Available plugins");
-pluginListWindow.Add(new Label(3, 1, "Choose plugin to load"));
+Window pluginListWindow = new Window("Choose plugin");
 
 var pluginActivationButtons = registeredPlugins
                                     .Select(x =>

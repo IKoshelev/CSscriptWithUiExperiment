@@ -37,8 +37,6 @@ class SumPlugin: ScriptPlugin
 
         MessageBox.Query(50, 7, "Success", c.ToString(), "Ok");
 
-        OperandATextField.Text = (a * 2).ToString();
-
         View.Add(new Label(3, 8, "Last result: " + c));
     }
 

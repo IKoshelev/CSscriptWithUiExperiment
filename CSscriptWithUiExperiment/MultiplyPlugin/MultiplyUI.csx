@@ -10,9 +10,9 @@ class MultiplyPlugin : ScriptPlugin
 
     public override string Description => "Multiplys two numbers";
 
-    private TextField OperandATextField = new TextField(14, 2, 40, "5");
+    private TextField OperandATextField = new TextField(14, 2, 40, "3");
 
-    private TextField OperandBTextField = new TextField(14, 4, 40, "7");
+    private TextField OperandBTextField = new TextField(14, 4, 40, "11");
 
     private Button RunButton = new Button(3, 6, "Execute");
 
@@ -36,8 +36,6 @@ class MultiplyPlugin : ScriptPlugin
         var c = Multiply(a, b);
 
         MessageBox.Query(50, 7, "Success", c.ToString(), "Ok");
-
-        OperandATextField.Text = (a * 2).ToString();
 
         View.Add(new Label(3, 8, "Last result: " + c));
 

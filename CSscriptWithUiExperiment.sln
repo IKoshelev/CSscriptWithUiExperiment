@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSscriptWithUiExperiment", "CSscriptWithUiExperiment\CSscriptWithUiExperiment.csproj", "{58727A8A-7DC1-49D3-BA25-A84F40F0F659}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testbed", "Testbed\Testbed.csproj", "{3A2293A9-D267-4096-AB71-95AF721271B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{58727A8A-7DC1-49D3-BA25-A84F40F0F659}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58727A8A-7DC1-49D3-BA25-A84F40F0F659}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58727A8A-7DC1-49D3-BA25-A84F40F0F659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A2293A9-D267-4096-AB71-95AF721271B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A2293A9-D267-4096-AB71-95AF721271B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A2293A9-D267-4096-AB71-95AF721271B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A2293A9-D267-4096-AB71-95AF721271B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
