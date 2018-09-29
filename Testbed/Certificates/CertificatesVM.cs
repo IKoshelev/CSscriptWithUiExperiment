@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Testbed.Certificates
@@ -43,11 +44,10 @@ namespace Testbed.Certificates
                                 .SelectMany(x =>
                                 {
                                     var cert = x.Cert?[0];
-                                    return new string[] 
+                                    return new string[]
                                         {
-                                            x.Path,
-                                            x.Exception?.Message ?? cert?.SubjectName?.Name ?? "",
-                                            cert?.NotAfter.ToShortDateString() ?? "",
+                                            $"Index: {Certificates.IndexOf(x).ToString()}",
+                                            GetCertificateDescription(x),
                                             ""
                                         };
                                 });
@@ -56,7 +56,18 @@ namespace Testbed.Certificates
             }
         }
 
-            ICertificateOperations certificateOperations = new CertificateOperations();
+        public static string GetCertificateDescription(CertificateImportResult importResult)
+        {
+            var cert = importResult.Cert?[0];
+            var descr = new string[] {
+                            importResult.Path,
+                            importResult.Exception?.Message ?? cert?.SubjectName?.Name ?? "",
+                            cert != null ? $"Valid till: {cert.NotAfter.ToShortDateString()}" : ""
+                };
+            return string.Join("\r\n", descr);
+        }
+
+        ICertificateOperations certificateOperations = new CertificateOperations();
 
         public void ScanCurrentPath(bool searchSubfolders = false)
         {
@@ -69,6 +80,26 @@ namespace Testbed.Certificates
             }
 
             NotifyProperyChanged(nameof(CertificatesListText));
+        }
+
+        CertificateImportResult TryGetCertificateByIndex(int index)
+        {
+            try
+            {
+                return Certificates.ElementAt(index);
+            }
+            catch(IndexOutOfRangeException ex)
+            {
+                return null;
+            }
+        }
+
+        public void ImportCertificate(
+                                X509Certificate2 cert,
+                                StoreName storeName = StoreName.Root,
+                                StoreLocation storeLocation = StoreLocation.LocalMachine)
+        {
+            certificateOperations.ImportCertificate(cert, storeName, storeLocation);
         }
     }
 }

@@ -122,6 +122,23 @@ namespace Designer
             return Button<View>(text, out var _, attr);
         }
 
+        public static Label Label<T>(string text, out T @var, Action<Label> attr = null)
+             where T : View
+        {
+            var label =  new Label(text);
+
+            attr?.Invoke(label);
+
+            @var = (T)(View)label;
+
+            return label;
+        }
+
+        public static Label Label(string text, Action<Label> attr = null)
+        {
+            return Label<Label>(text, out var _, attr);
+        }
+
         public static TextField TextField<T>(out T @var, Action<TextField> attr = null)
             where T : View
         {
@@ -170,6 +187,43 @@ namespace Designer
         public static FrameView FrameView(string text, Action<FrameView> attr = null, params View[] children)
         {
             return FrameView<FrameView>(text, out var _, attr, children);
+        }
+
+        public static RadioGroup RadioGroup<T>(string[] options, out T @var, Action<RadioGroup> attr = null)
+            where T : View
+        {
+            var radioGroup = new RadioGroup(options);
+
+            attr?.Invoke(radioGroup);
+
+            @var = (T)(View)radioGroup;
+            return radioGroup;
+        }
+
+        public static RadioGroup RadioGroup(string[] options, Action<RadioGroup> attr = null)
+        {
+            return RadioGroup<RadioGroup>(options, out var _, attr);
+        }
+
+        public static Dialog Dialog<T>(string name, int width, int height, out T @var, Button[] buttons, Action<Dialog> attr = null, params View[] children)
+            where T : View
+        {
+            var dialog = new Dialog(name, width, height, buttons);
+
+            attr?.Invoke(dialog);
+
+            if (children?.Any() == true)
+            {
+                dialog.Add(children);
+            }
+
+            @var = (T)(View)dialog;
+            return dialog;
+        }
+
+        public static Dialog Dialog(string name, int width, int height, Button[] buttons, Action<Dialog> attr = null, params View[] children)
+        {
+            return Dialog<Dialog>(name, width, height, out var _, buttons, attr, children);
         }
     }
 }

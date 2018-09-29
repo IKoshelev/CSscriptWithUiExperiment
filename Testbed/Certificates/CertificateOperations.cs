@@ -11,7 +11,7 @@ namespace Testbed.Certificates
     {
         CertificateImportResult OpenCertificate(string certFullPath);
         CertificateImportResult[] GetCertificates(string searchStartPath, bool searchSubfolders = false);
-        void AddCertificate(
+        void ImportCertificate(
             X509Certificate2 cert, 
             StoreName storeName = StoreName.Root, 
             StoreLocation storeLocation = StoreLocation.LocalMachine);
@@ -38,7 +38,7 @@ namespace Testbed.Certificates
 
     public class CertificateOperations : ICertificateOperations
     {
-        public void AddCertificate(
+        public void ImportCertificate(
                             X509Certificate2 cert, 
                             StoreName storeName = StoreName.My, 
                             StoreLocation storeLocation = StoreLocation.LocalMachine)
