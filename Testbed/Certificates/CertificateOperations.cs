@@ -94,7 +94,7 @@ namespace Testbed.Certificates
             }
         }
 
-        public static int MaxPasswordLength { get; set; } = 1025;
+        public static int MaxPasswordLength { get; set; } = 270;
         private Dictionary<string, string[]> passwordsCache = new Dictionary<string, string[]>();  
         private string[] GetCandidatePasswords(string certFullPath)
         {
@@ -104,7 +104,7 @@ namespace Testbed.Certificates
             }
 
             string folderPath = Path.GetDirectoryName(certFullPath);
-            var txtFiles = Directory.EnumerateFiles(folderPath, "*.txt", SearchOption.TopDirectoryOnly);
+            var txtFiles = Directory.EnumerateFiles(folderPath, "*.*", SearchOption.TopDirectoryOnly);
 
             var passwrodsFromFiles = txtFiles
                                         .Where(x => new FileInfo(x).Length <= MaxPasswordLength)
