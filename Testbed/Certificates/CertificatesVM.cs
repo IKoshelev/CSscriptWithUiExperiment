@@ -59,11 +59,12 @@ namespace Testbed.Certificates
         public static string GetCertificateDescription(CertificateImportResult importResult)
         {
             var cert = importResult.Cert?[0];
-            var descr = new string[] {
+            var descr = new string[] 
+            {
                             importResult.Path,
                             importResult.Exception?.Message ?? cert?.SubjectName?.Name ?? "",
                             cert != null ? $"Valid till: {cert.NotAfter.ToShortDateString()}" : ""
-                };
+            };
             return string.Join("\n", descr);
         }
 
@@ -100,6 +101,38 @@ namespace Testbed.Certificates
                                 StoreLocation storeLocation = StoreLocation.LocalMachine)
         {
             certificateOperations.ImportCertificate(cert, storeName, storeLocation);
+        }
+
+        public void SetDefaultNames()
+        {
+            foreach(var importResult in Certificates)
+            {
+                var cert = importResult.Cert?[0];
+                var subject = cert?.SubjectName?.Name;
+
+                if (string.IsNullOrWhiteSpace(subject))
+                {
+                    continue;
+                }
+
+                subject = subject
+                                .Split(',')
+                                .First()
+                                .Replace("CN=", "");
+
+                var dir = System.IO.Path.GetDirectoryName(importResult.Path);
+                var validDate = cert.NotAfter.ToString("MM-dd-yyyy");
+
+                var oldName = System.IO.Path
+                                        .GetFileName(importResult.Path)
+                                        .Replace($"{subject};", "")
+                                        .Replace($"{validDate};", "");
+
+                var newName = $"{subject};{validDate};{oldName}";
+                var newFullPath = System.IO.Path.Combine(dir, newName);
+
+                System.IO.File.Copy(importResult.Path, newFullPath);
+            }
         }
     }
 }

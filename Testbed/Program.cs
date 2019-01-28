@@ -46,6 +46,16 @@ namespace Testbed
                                 };
                             })
 
+                            , Button("Create copies with standard names",
+                            b =>
+                            {
+                                b.X = 32; b.Y = 1;
+                                b.Clicked = () =>
+                                {
+                                    certificatesVM.SetDefaultNames();
+                                };
+                            })
+
                             , TextField(
                             f =>
                             {
