@@ -52,7 +52,17 @@ namespace Testbed
                                 b.X = 32; b.Y = 1;
                                 b.Clicked = () =>
                                 {
-                                    certificatesVM.SetDefaultNames();
+                                    certificatesVM.SetDefaultNamesForCertificateFiles();
+                                };
+                            })
+
+                            , Button("Copy cert info to clipboard",
+                            b =>
+                            {
+                                b.X = 70; b.Y = 1;
+                                b.Clicked = () =>
+                                {
+                                    certificatesVM.CopyCertificateInoToClipboard();
                                 };
                             })
 

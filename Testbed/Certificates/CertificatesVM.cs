@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
@@ -103,7 +104,7 @@ namespace Testbed.Certificates
             certificateOperations.ImportCertificate(cert, storeName, storeLocation);
         }
 
-        public void SetDefaultNames()
+        public void SetDefaultNamesForCertificateFiles()
         {
             foreach(var importResult in Certificates)
             {
@@ -134,5 +135,39 @@ namespace Testbed.Certificates
                 System.IO.File.Copy(importResult.Path, newFullPath);
             }
         }
+
+        public void CopyCertificateInoToClipboard()
+        {
+            var val = CertificatesListText.ToString();
+
+            val = val.Replace("\n", "`n");
+
+            var args = $"\"{val}\" | clip";
+
+            var escapedArgs = args
+                                .Replace("\"", "\\\"");
+
+            string result = Run("powershell", $"/c {escapedArgs}");
+        }
+
+        private static string Run(string filename, string arguments)
+        {
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = filename,
+                    Arguments = arguments,
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = false,
+                }
+            };
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            return result;
+        }
+
     }
 }
