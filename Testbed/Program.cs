@@ -139,7 +139,7 @@ namespace Testbed
                 {
                     certificateInfoTextView.Text = 
                         $"Certificate {selectedIndexOfCertificate} not found. "
-                        + "\r\nPlease scan a folder for certificates on previous page "
+                        + "\nPlease scan a folder for certificates on previous page "
                         + "and choose one by its index.";
                     return;
                 }

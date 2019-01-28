@@ -52,7 +52,7 @@ namespace Testbed.Certificates
                                         };
                                 });
 
-                return string.Join("\r\n", certDesc);
+                return string.Join("\n", certDesc);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Testbed.Certificates
                             importResult.Exception?.Message ?? cert?.SubjectName?.Name ?? "",
                             cert != null ? $"Valid till: {cert.NotAfter.ToShortDateString()}" : ""
                 };
-            return string.Join("\r\n", descr);
+            return string.Join("\n", descr);
         }
 
         ICertificateOperations certificateOperations = new CertificateOperations();
