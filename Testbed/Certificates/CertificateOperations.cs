@@ -98,15 +98,16 @@ namespace Testbed.Certificates
         private Dictionary<string, string[]> passwordsCache = new Dictionary<string, string[]>();  
         private string[] GetCandidatePasswords(string certFullPath)
         {
-            if (passwordsCache.ContainsKey(certFullPath))
-            {
-                return passwordsCache[certFullPath];
-            }
-
             string folderPath = Path.GetDirectoryName(certFullPath);
-            var txtFiles = Directory.EnumerateFiles(folderPath, "*.*", SearchOption.TopDirectoryOnly);
 
-            var passwrodsFromFiles = txtFiles
+            if (passwordsCache.ContainsKey(folderPath))
+            {
+                return passwordsCache[folderPath];
+            }
+         
+            var smallFiles = Directory.EnumerateFiles(folderPath, "*.*", SearchOption.TopDirectoryOnly);
+
+            var passwrodsFromFiles = smallFiles
                                         .Where(x => new FileInfo(x).Length <= MaxPasswordLength)
                                         .Select(x => File.ReadAllText(x));
 
@@ -116,7 +117,7 @@ namespace Testbed.Certificates
                                     .Union(passwrodsFromFiles)
                                     .ToArray();
 
-            passwordsCache[certFullPath] = passwords;
+            passwordsCache[folderPath] = passwords;
 
             return passwords;
         }
